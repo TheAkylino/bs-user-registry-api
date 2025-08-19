@@ -1,0 +1,49 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /user-registry
+spring:
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:h2:mem:developmentdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: dev
+    password: dev
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    url: /user-registry/v3/api-docs
+    config-url: /user-registry/v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+    display-request-duration: true
+app:
+  regex:
+    password: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^a-zA-Z0-9]).{8,}$"
+  jwt:
+    secret: 'p8jQ1kZrA2s7Vx9LmN4tC6bY8uH5wQ3eR1tU7iP0aS4dF6gH8jK0mN2pQ4sT6vY'
+    expirationSeconds: 3600
+
+security:
+  basic:
+    enabled: false
+logging:
+  level:
+    org.springframework.security: TRACE
+    org.springframework.security.web.access.intercept.FilterSecurityInterceptor: TRACE
+    org.springframework.security.web.util.matcher: TRACE
